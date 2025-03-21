@@ -1,4 +1,10 @@
+<img src="docs/images/logo.jpeg" width="160" alt="logo">
+
 # MCP-Slicer - 3D Slicer Model Context Protocol Integration
+
+[![Python Version](https://img.shields.io/badge/python-3.13%2B-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PyPI version](https://img.shields.io/pypi/v/mcp-slicer.svg)](https://pypi.org/project/mcp-slicer/)
 
 MCP-Slicer 通过模型上下文协议(MCP)将 3D Slicer 与 例如 Claude Desktop 或 Cline 等模型客户端连接起来，使之能够直接与 3D Slicer 交互和控制。这种集成实现了用自然语言进行医学影像处理、场景创建和操作。
 
