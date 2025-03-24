@@ -1,4 +1,4 @@
-<img src="docs/images/logo.jpeg" width="160" alt="logo">
+<img src="https://github.com/zhaoyouj/mcp-slicer/blob/main/docs/images/logo.jpeg?raw=true" width="160" alt="logo">
 
 # MCP-Slicer - 3D Slicer Model Context Protocol Integration
 
@@ -10,13 +10,13 @@
 
 MCP-Slicer 通过模型上下文协议(MCP)将 3D Slicer 与 例如 Claude Desktop 或 Cline 等模型客户端连接起来，使之能够直接与 3D Slicer 交互和控制。这种集成实现了用自然语言进行医学影像处理、场景创建和操作。
 
-## Features
+## 功能
 
 1. list_nodes: 用于列出和过滤 Slicer MRML 节点并查看其属性
 
 2. execute_python_code: 允许在 Slicer 环境中执行 Python 代码
 
-## Installation
+## 安装
 
 ### Prerequisites
 
@@ -46,7 +46,7 @@ Otherwise installation instructions are on their website: [Install uv](https://d
 
 **⚠️ 请先安装 UV**
 
-### Claude for Desktop Integration
+### 设置 Claude Desktop
 
 Go to Claude > Settings > Developer > Edit Config > claude_desktop_config.json to include the following:
 
@@ -61,7 +61,7 @@ Go to Claude > Settings > Developer > Edit Config > claude_desktop_config.json t
 }
 ```
 
-### Cline Intergration
+### 设置 Cline
 
 ```json
 {
@@ -74,18 +74,40 @@ Go to Claude > Settings > Developer > Edit Config > claude_desktop_config.json t
 }
 ```
 
-## Usage
+## 开始使用
 
-### Open Slicer Web Server
+### 确认 Claude 正确配置
+
+<img width="1045" alt="Image" src="https://github.com/zhaoyouj/mcp-slicer/blob/main/docs/images/claude_check.png?raw=true" />
+确保您看到相应的Slicer工具已添加到Claude桌面应用程序
+
+<img width="300" alt="Image" src="https://github.com/zhaoyouj/mcp-slicer/blob/main/docs/images/toolsButton.png?raw=true" />
+<img width="300" alt="Image" src="https://github.com/zhaoyouj/mcp-slicer/blob/main/docs/images/tools_check.png?raw=true" />
+
+### 启动 Slicer Web Server
 
 先打开 Slicer 的 Web Server 模组，确保勾选所需的接口，再启动服务器
-<img width="1045" alt="Image" src="docs\images\start_slicer_web_server.png" />
+<img width="1045" alt="Image" src="https://github.com/zhaoyouj/mcp-slicer/blob/main/docs/images/start_slicer_web_server.png?raw=true" />
 
-## Technical Details
+## 用例
+
+### - list_nodes
+
+> 现在 Slicer 场景中有哪些 Markups node，列出他们的名字，如果是线，他的长度是多少，如果是角，它的角度是多少
+
+<img width="1045" alt="Image" src="https://github.com/zhaoyouj/mcp-slicer/blob/main/docs/images/example_list_nodes_cn.png?raw=true" />
+
+### - execute python code
+
+> 在 Slicer 场景中绘制一个 8cm 的半透明绿色立方体，标出它的顶点，再在其中画一个内切的红色球体
+
+<img width="1045" alt="example_code_execute_en" src="https://github.com/zhaoyouj/mcp-slicer/blob/main/docs/images/example_code_execute_cn.png?raw=true" />
+
+## 技术细节
 
 借助了 Slicer Web Server 现有接口，技术细节请查看 [Slicer web server user guide](https://slicer.readthedocs.io/en/latest/user_guide/modules/webserver.html)
 
-## Limitations & Security Considerations
+## 限制 & 安全考虑
 
 - `execute_python_code` 工具允许在 3D Slicer 中运行任意 Python 代码，这很强大但也可能存在潜在危险。
 
@@ -93,10 +115,10 @@ Go to Claude > Settings > Developer > Edit Config > claude_desktop_config.json t
 
 - 复杂操作可能需要分解为更小的步骤。
 
-## Contributing
+## 贡献
 
 欢迎贡献！请随时提交 Pull Request。
 
-## Disclaimer
+## 申明
 
 这是一个第三方集成项目，不是由 3D Slicer 官方开发。

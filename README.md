@@ -1,4 +1,4 @@
-<img src="docs/images/logo.jpeg" width="160" alt="logo">
+<img src="https://github.com/zhaoyouj/mcp-slicer/blob/main/docs/images/logo.jpeg?raw=true" width="160" alt="logo">
 
 # MCP-Slicer - 3D Slicer Model Context Protocol Integration
 
@@ -76,10 +76,35 @@ Go to Claude > Settings > Developer > Edit Config > claude_desktop_config.json t
 
 ## Usage
 
+### Check Claude Settings
+
+<img width="1045" alt="Image" src="https://github.com/zhaoyouj/mcp-slicer/blob/main/docs/images/claude_check.png?raw=true" />
+Make sure you see the corresponding slicer tools added to the Claude Desktop App
+
+<img width="300" alt="Image" src="https://github.com/zhaoyouj/mcp-slicer/blob/main/docs/images/toolsButton.png?raw=true" />
+<img width="300" alt="Image" src="https://github.com/zhaoyouj/mcp-slicer/blob/main/docs/images/tools_check.png?raw=true" />
+
 ### Open Slicer Web Server
 
-First, open the Slicer Web Server module, ensure the required interfaces are checked, then start the server
-<img width="1045" alt="Image" src="docs\images\start_slicer_web_server.png" />
+1. Open the Slicer Web Server module,
+2. ensure the required interfaces are checked,
+3. then start the server
+
+<img width="1045" alt="Image" src="https://github.com/zhaoyouj/mcp-slicer/blob/main/docs/images/start_slicer_web_server.png?raw=true" />
+
+## Examples
+
+### - list_nodes
+
+> What Markups nodes are in the Slicer scene now, list their names, what is their length if it is a line, and what is its angle if it is an angle
+
+<img width="1045" alt="Image" src="https://github.com/zhaoyouj/mcp-slicer/blob/main/docs/images/example_list_nodes_en.png?raw=true" />
+
+### - execute python code
+
+> Draw a translucent green cube of 8 cm in the Slicer scene, mark its vertices, and then draw a red sphere inscribed in it.
+
+<img width="1045" alt="example_code_execute_en" src="https://github.com/zhaoyouj/mcp-slicer/blob/main/docs/images/example_code_execute_en.png?raw=true" />
 
 ## Technical Details
 
