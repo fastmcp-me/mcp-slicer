@@ -8,21 +8,21 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI version](https://img.shields.io/pypi/v/mcp-slicer.svg)](https://pypi.org/project/mcp-slicer/)
 
-MCP-Slicer connects 3D Slicer with model clients like Claude Desktop or Cline through the Model Context Protocol (MCP), enabling direct interaction and control of 3D Slicer. This integration allows for medical image processing, scene creation, and manipulation using natural language.
+MCP-Slicer 通过模型上下文协议(MCP)将 3D Slicer 与 例如 Claude Desktop 或 Cline 等模型客户端连接起来，使之能够直接与 3D Slicer 交互和控制。这种集成实现了用自然语言进行医学影像处理、场景创建和操作。
 
 ## Features
 
-1. list_nodes: List and filter Slicer MRML nodes and view their properties
+1. list_nodes: 用于列出和过滤 Slicer MRML 节点并查看其属性
 
-2. execute_python_code: Execute Python code in the Slicer environment
+2. execute_python_code: 允许在 Slicer 环境中执行 Python 代码
 
 ## Installation
 
 ### Prerequisites
 
-- 3D Slicer 5.8 or newer
-- Python 3.13 or newer
-- uv package manager
+- 3D Slicer 5.8 或更新版本
+- Python 3.13 或更新版本
+- uv 包管理器
 
 **If you're on Mac, please install uv as**
 
@@ -44,7 +44,7 @@ set Path=C:\Users\nntra\.local\bin;%Path%
 
 Otherwise installation instructions are on their website: [Install uv](https://docs.astral.sh/uv/getting-started/installation/)
 
-**⚠️ Please install UV first**
+**⚠️ 请先安装 UV**
 
 ### Claude for Desktop Integration
 
@@ -78,25 +78,25 @@ Go to Claude > Settings > Developer > Edit Config > claude_desktop_config.json t
 
 ### Open Slicer Web Server
 
-First, open the Slicer Web Server module, ensure the required interfaces are checked, then start the server
+先打开 Slicer 的 Web Server 模组，确保勾选所需的接口，再启动服务器
 <img width="1045" alt="Image" src="docs\images\start_slicer_web_server.png" />
 
 ## Technical Details
 
-Utilizes existing Slicer Web Server interfaces. For technical details, please see [Slicer web server user guide](https://slicer.readthedocs.io/en/latest/user_guide/modules/webserver.html)
+借助了 Slicer Web Server 现有接口，技术细节请查看 [Slicer web server user guide](https://slicer.readthedocs.io/en/latest/user_guide/modules/webserver.html)
 
 ## Limitations & Security Considerations
 
-- The `execute_python_code` tool allows running arbitrary Python code in 3D Slicer, which is powerful but potentially dangerous.
+- `execute_python_code` 工具允许在 3D Slicer 中运行任意 Python 代码，这很强大但也可能存在潜在危险。
 
-  **⚠️ Not recommended for production use.**
+  **⚠️ 请勿在生产环境中使用。**
 
-- Complex operations may need to be broken down into smaller steps.
+- 复杂操作可能需要分解为更小的步骤。
 
 ## Contributing
 
-Contributions are welcome! Feel free to submit Pull Requests.
+欢迎贡献！请随时提交 Pull Request。
 
 ## Disclaimer
 
-This is a third-party integration project, not developed by the 3D Slicer team.
+这是一个第三方集成项目，不是由 3D Slicer 官方开发。

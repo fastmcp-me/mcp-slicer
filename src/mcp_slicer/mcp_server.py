@@ -13,29 +13,29 @@ SLICER_WEB_SERVER_URL = "http://localhost:2016/slicer"
 def list_nodes(filter_type: str = "names", class_name: str = None, 
               name: str = None, id: str = None) -> dict:
     """
-    通过 Slicer Web Server API 列出 MRML 节点。
+    List MRML nodes via the Slicer Web Server API.
 
-    filter_type 参数指定要检索的节点信息的类型。
-    可选值包括 "names" (节点名称), "ids" (节点 ID), 和 "properties" (节点属性)。
-    默认值为 "names"。
+    The filter_type parameter specifies the type of node information to retrieve.
+    Possible values include "names" (node names), "ids" (node IDs), and "properties" (node properties).
+    The default value is "names".
 
-    class_name, name, 和 id 参数是可选的，可用于进一步过滤节点。
-    class_name 参数允许按类名筛选节点。
-    name 参数允许按名称筛选节点。
-    id 参数允许按 ID 筛选节点。
+    The class_name, name, and id parameters are optional and can be used to further filter nodes.
+    The class_name parameter allows filtering nodes by class name.
+    The name parameter allows filtering nodes by name.
+    The id parameter allows filtering nodes by ID.
 
-    例如：
-    - 列出所有节点的名称：{"tool": "list_nodes", "arguments": {"filter_type": "names"}}
-    - 列出特定类别的节点的 ID：{"tool": "list_nodes", "arguments": {"filter_type": "ids", "class_name": "vtkMRMLModelNode"}}
-    - 列出具有特定名称的节点的属性：{"tool": "list_nodes", "arguments": {"filter_type": "properties", "name": "MyModel"}}
-    - 列出具有特定 ID 的节点：{"tool": "list_nodes", "arguments": {"filter_type": "ids", "id": "vtkMRMLModelNode123"}}
+    Examples:
+    - List the names of all nodes: {"tool": "list_nodes", "arguments": {"filter_type": "names"}}
+    - List the IDs of nodes of a specific class: {"tool": "list_nodes", "arguments": {"filter_type": "ids", "class_name": "vtkMRMLModelNode"}}
+    - List the properties of nodes with a specific name: {"tool": "list_nodes", "arguments": {"filter_type": "properties", "name": "MyModel"}}
+    - List nodes with a specific ID: {"tool": "list_nodes", "arguments": {"filter_type": "ids", "id": "vtkMRMLModelNode123"}}
 
-    返回一个包含节点信息的字典。
-    如果 filter_type 是 "names" 或 "ids"，则返回的字典包含一个 "nodes" 键，其值为包含节点名称或 ID 的列表。
-    例如：{"nodes": ["node1", "node2", ...]} 或 {"nodes": ["id1", "id2", ...]}
-    如果 filter_type 是 "properties"，则返回的字典包含一个 "nodes" 键，其值为包含节点属性的字典。
-    例如：{"nodes": {"node1": {"property1": "value1", "property2": "value2"}, ...}}
-    如果发生错误，则返回一个包含 "error" 键的字典，其值为描述错误的字符串。
+    Returns a dictionary containing node information.
+    If filter_type is "names" or "ids", the returned dictionary contains a "nodes" key, whose value is a list containing node names or IDs.
+    Example: {"nodes": ["node1", "node2", ...]} or {"nodes": ["id1", "id2", ...]}
+    If filter_type is "properties", the returned dictionary contains a "nodes" key, whose value is a dictionary containing node properties.
+    Example: {"nodes": {"node1": {"property1": "value1", "property2": "value2"}, ...}}
+    If an error occurs, a dictionary containing an "error" key is returned, whose value is a string describing the error.
     """
     try:
         # Build API endpoint based on filter type
@@ -83,23 +83,36 @@ def list_nodes(filter_type: str = "names", class_name: str = None,
 @mcp.tool()
 def execute_python_code(code: str) -> dict:
     """
-    在 3D Slicer 中执行 Python 代码。
-    
+    Execute Python code in 3D Slicer.
+
     Parameters:
     code (str): The Python code to execute.
 
-    code 参数是要执行的 Python 代码字符串。
-    该代码将在 3D Slicer 的 Python 环境中执行。
+    The code parameter is a string containing the Python code to be executed in 3D Slicer's Python environment.
+    The code should be executable by Python's `exec()` function. To get return values, the code should assign the result to a variable named `__execResult`.
 
-    例如：
-    - 创建一个球体模型：{"tool": "execute_python_code", "arguments": {"code": "import slicer; sphere = slicer.vtkMRMLModelNode(); slicer.mrmlScene.AddNode(sphere); sphere.SetName('MySphere');"}}
-    - 获取当前场景中的节点数：{"tool": "execute_python_code", "arguments": {"code": "len(slicer.mrmlScene.GetNodes())"}}
+    Examples:
+    - Create a sphere model: {"tool": "execute_python_code", "arguments": {"code": "sphere = slicer.vtkMRMLModelNode(); slicer.mrmlScene.AddNode(sphere); sphere.SetName('MySphere'); __execResult = sphere.GetID()"}}
+    - Get the number of nodes in the current scene: {"tool": "execute_python_code", "arguments": {"code": "__execResult = len(slicer.mrmlScene.GetNodes())"}}
+    - Calculate 1+1: {"tool": "execute_python_code", "arguments": {"code": "__execResult = 1 + 1"}}
 
-    返回一个包含执行结果的字典。
-    如果代码执行成功，字典将包含一个 "result" 键，其值为执行结果。
-    例如：{"result": 5}
-    如果代码执行失败，字典将包含一个 "error" 键，其值为包含错误消息的字符串。
-    例如：{"error": "NameError: name 'slicer' is not defined"}
+    Returns:
+        dict: A dictionary containing the execution result.
+
+        If the code execution is successful, the dictionary will contain the following key-value pairs:
+        - "success": True
+        - "message": The result of the code execution. If the code assigns the result to `__execResult`, the value of `__execResult` is returned, otherwise it returns empty.
+
+        If the code execution fails, the dictionary will contain the following key-value pairs:
+        - "success": False
+        - "message": A string containing an error message indicating the cause of the failure. The error message may come from the Slicer Web Server or the Python interpreter.
+
+    Examples:
+    - Successful execution: {"success": True, "message": 2}  # Assuming the result of 1+1 is 2
+    - Successful execution: {"success": True, "message": "vtkMRMLScene1"} # Assuming the created sphere id is vtkMRMLScene1
+    - Python execution error: {"success": False, "message": "Server error: name 'slicer' is not defined"}
+    - Connection error: {"success": False, "message": "Connection error: ..."}
+    - HTTP error: {"success": False, "message": "HTTP Error 404: Not Found"}
     """
     api_url = f"{SLICER_WEB_SERVER_URL}/exec"
     headers = {'Content-Type': 'text/plain'}
@@ -107,14 +120,28 @@ def execute_python_code(code: str) -> dict:
         response = requests.post(api_url, data=code.encode('utf-8'), headers=headers)
         result_data = response.json()
         
-        if not result_data.get("success", True):
-            # 直接返回服务器提供的错误信息
-            return {"error": result_data.get("message", "Unknown Python execution error")}
+        if isinstance(result_data, dict) and not result_data.get("success", True):
+            return {
+                "success": False,
+                "message": result_data.get("message", "Unknown Python execution error")
+                }
             
-        return {"result": result_data.get("__execResult", result_data)}
+        return {
+            "success": True,
+            "message": result_data.get("__execResult") if isinstance(result_data, dict) and "__execResult" in result_data else result_data
+            }
     except requests.exceptions.HTTPError as e:
-        return {"error": f"HTTP Error {e.response.status_code}: {str(e)}"}
+        return {
+            "success": False,
+            "message": f"HTTP Error {e.response.status_code}: {str(e)}"
+            }
     except json.JSONDecodeError:
-        return {"error": f"Invalid JSON response: {response.text}"}
+        return {
+            "success": False,
+            "message": f"Invalid JSON response: {response.text}"
+            }
     except requests.exceptions.RequestException as e:
-        return {"error": f"Connection error: {str(e)}"}
+        return {
+            "success": False,
+            "message": f"Connection error: {str(e)}"
+            }

@@ -1,6 +1,6 @@
 [project]
 name = "mcp-slicer"
-version = "0.1.0"
+version = "0.1.2"
 description = "A MCP server for 3D Slicer"
 readme = "README.md"
 authors = [
